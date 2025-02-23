@@ -94,7 +94,7 @@ shinyServer(function(input, output) {
     if(length(tophits) > 10){
       tophits <- tophits[1:10]
     }
-  
+    
     counter <- 0
     for(i in 1:length(tophits)){
       pmid <- tophits[i]
@@ -163,7 +163,7 @@ shinyServer(function(input, output) {
             realism_mat.i <- rbind(realism_mat.i, row.while)
           }
         }
- 
+        
         results_out.i <- data.frame(ID.i, realism_cat.i, promed.i, annots.i, realism_mat.i)
         colnames(results_out.i) <- c("Application ID", "Realism Category", "Similar Promed", "Named entity", "Entity type", "CURIE.ID", "Realism entity 1", "Realism entity 2", "Realism pair score")
         if(counter == 0){
@@ -243,7 +243,7 @@ shinyServer(function(input, output) {
   output$bulk_output <- renderDT({
     bulk_data()
   })
-
+  
   output$dl_bulk <- downloadHandler(
     filename = function() { paste0(as.numeric(Sys.time()), "_bulk_data.xlsx")},
     content = function(file) {write_xlsx(bulk_data(), path = file)}

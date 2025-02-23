@@ -2,9 +2,13 @@
 
 ## Running the code
 1. You need to create a file called secrets.csv in the data subdirectory. The file should be formatted as follows:
+
 key
+
 open_ai [your openAI API key here]
+
 assist [the API key associated with the openAI rag model]
+
 2. To deploy you will need to create an account on https://www.shinyapps.io/
 3. Running locally requires managing a python virtual environment.
 
