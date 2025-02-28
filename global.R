@@ -53,7 +53,7 @@ get_geoloc_info <- function(annotates){ #annotates with geolocation and matches 
   if(length(use_geo_loc) == 0){
     return()
   }
-  use_health <- which(toupper(world_health_ind$`Country Name`) == toupper(annotates$name[use_geo_loc]))
+  use_health <- which(toupper(world_health_ind$`Country Name`) == toupper(annotates$name[use_geo_loc][1]))
   
   use_geo <- which(toupper(world_dev_ind$`Country Name`) == toupper(annotates$name[use_geo_loc]))
   

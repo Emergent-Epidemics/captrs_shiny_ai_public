@@ -7,7 +7,8 @@ shinyUI(fluidPage(
     tabsetPanel(
       tabPanel("Threat generation",fluidRow(
         column(2,
-               selectInput(inputId = "ai_model", label = "Select AI", choices = c("GPT-4o", "GPT-4o RAG")),
+               selectInput(inputId = "ai_model", label = "Select AI", choices = c("gpt-4o", "gpt-4.5-preview-2025-02-27"), selected = "gpt-4o"),
+               selectInput(inputId = "ai_rag", label = "Use RAG?", choices = c("No", "Yes"), selected = "No"),
                textInput(inputId = "text_pathogen", label = "Pathogen", value = "Ebola"),
                textInput(inputId = "text_severity", label = "Severity", value = "Highly lethal"),
                selectizeInput(inputId = "text_location", label = "Geo-political context", choices= locations, selected = "Sub-Saharan Africa", multiple = FALSE),

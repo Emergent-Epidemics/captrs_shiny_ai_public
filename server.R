@@ -7,7 +7,7 @@ shinyServer(function(input, output) {
       system_prompt = input$text_system_prompt,
       turns = NULL,
       base_url = "https://api.openai.com/v1",
-      model = "gpt-4o",
+      model = input$ai_model,
       seed = NULL,
       api_args = list(),
       echo = c("none", "text", "all")
@@ -20,17 +20,18 @@ shinyServer(function(input, output) {
     
     prompt <- paste0(prompt_raw[["start_pathogen"]], input$text_pathogen, prompt_raw[["severity"]], input$text_severity, prompt_raw[["geopolitical"]], input$text_location, prompt_raw[["location"]], health_prompt, prompt_raw[["health"]], dev_prompt, prompt_raw[["dev_ind_end"]]) #combines input prompt with input params and indicators
     
-    if(input$ai_model == "GPT-4o"){
+    if(input$ai_rag == "No"){
       response <- ai$chat(prompt)
     }
-    if(input$ai_model == "GPT-4o RAG"){
+    if(input$ai_rag == "Yes"){
       thread = client$beta$threads$create()
       message = client$beta$threads$messages$create(
         thread_id= thread$id, role="user", content=prompt
       )
       run = client$beta$threads$runs$create_and_poll(
         thread_id=thread$id,
-        assistant_id=assistant$id
+        assistant_id=assistant$id,
+        model = input$ai_model
       )
       if(run$status == "completed"){
         messages_raw = client$beta$threads$messages$list(
@@ -94,7 +95,7 @@ shinyServer(function(input, output) {
     if(length(tophits) > 10){
       tophits <- tophits[1:10]
     }
-    
+  
     counter <- 0
     for(i in 1:length(tophits)){
       pmid <- tophits[i]
@@ -163,7 +164,7 @@ shinyServer(function(input, output) {
             realism_mat.i <- rbind(realism_mat.i, row.while)
           }
         }
-        
+ 
         results_out.i <- data.frame(ID.i, realism_cat.i, promed.i, annots.i, realism_mat.i)
         colnames(results_out.i) <- c("Application ID", "Realism Category", "Similar Promed", "Named entity", "Entity type", "CURIE.ID", "Realism entity 1", "Realism entity 2", "Realism pair score")
         if(counter == 0){
@@ -183,10 +184,10 @@ shinyServer(function(input, output) {
     results_raw <- gen_threat_response()
     response <- results_raw$response
     realism <- results_raw$ontology$realism_cat
-    if(input$ai_model == "GPT-4o"){
+    if(input$ai_rag == "No"){
       response_html <- HTML(mark_html(response, options = "-standalone"))
     }
-    if(input$ai_model == "GPT-4o RAG"){
+    if(input$ai_rag == "Yes"){
       response_pretty <- gsub(pattern = "\\n", replacement = "\n", x = response, fixed = TRUE)
       response_html <- HTML(mark_html(response_pretty, options = "-standalone"))
     }
@@ -243,7 +244,7 @@ shinyServer(function(input, output) {
   output$bulk_output <- renderDT({
     bulk_data()
   })
-  
+
   output$dl_bulk <- downloadHandler(
     filename = function() { paste0(as.numeric(Sys.time()), "_bulk_data.xlsx")},
     content = function(file) {write_xlsx(bulk_data(), path = file)}
