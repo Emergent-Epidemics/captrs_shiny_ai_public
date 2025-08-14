@@ -90,11 +90,11 @@ The report doesn't note the source, but presumably the 3 individuals were expose
       )
     )
     ),
-    tabPanel("ProMED Look-up",fluidRow(
-      column(3,
-             textInput("text_promed", "ProMed ID", "20160616.4292080"),
-             actionButton("Submit_promed","Submit")
-      ),
+    #tabPanel("ProMED Look-up",fluidRow(
+    #  column(3,
+    #         textInput("text_promed", "ProMed ID", "20160616.4292080"),
+    #         actionButton("Submit_promed","Submit")
+    #  ),
       column(8,
              tags$head(tags$style(HTML("pre { white-space: pre-wrap; word-break: keep-all; }"))),
              htmlOutput("results_text_promed") %>% withSpinner(color="#0dc5c1")
@@ -116,5 +116,14 @@ The report doesn't note the source, but presumably the 3 individuals were expose
              downloadButton("dl_bulk", "Download")
       )
       )
-    )
+    ),
+    tabPanel("Terms of Use",fluidRow(
+    )),
+    footer = (HTML('
+                          <br>
+                          <br>
+                          <center>
+                          <p>Powered by the Institute for Experiential AI at Northeastern University<br>
+                          </p>
+                       </center>',actionLink("link_to_tabpanel_terms_of_use", "Link to panel A")))
 )))
