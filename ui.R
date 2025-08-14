@@ -1,34 +1,34 @@
 #SVScarpino
 
 shinyUI(fluidPage(
-    mainPanel(
-      img(src="CAPTRS_HorizonalLogo_DarkBlue.jpg", width = 300, height = 150)
-    ),
-    tabsetPanel(
-      tabPanel("Threat generation",fluidRow(
-        column(2,
-               selectInput(inputId = "ai_model", label = "Select AI", choices = c("gpt-4o", "gpt-4o-mini", "gpt-4.1", "gpt-4.1-mini"), selected = "gpt-4o-mini"),
-               selectInput(inputId = "ai_rag", label = "Use RAG?", choices = c("No", "Yes"), selected = "No"),
-               textInput(inputId = "text_pathogen", label = "Pathogen", value = "Ebola"),
-               textInput(inputId = "text_severity", label = "Severity", value = "Highly lethal"),
-               selectizeInput(inputId = "text_location", label = "Geo-political context", choices= locations, selected = "Sub-Saharan Africa", multiple = FALSE),
-               textAreaInput(inputId = "text_system_prompt", label = "System Prompt", value = "You are generating threats for use in a professional pandemic response wargame. The threat should combine risks associated with the pathogen and the geo-political context.", width = 300, height = 130),
-               textAreaInput(inputId = "text_prompt", label = "Prompt", value = "Generate a threat by combining the following information, the pathogen is PATHOGEN_HERE the severity is SEVERITY_HERE and the geopolitical context is LOCATION_HERE as a location with HEALTH_IND as health indicators and DEV_IND as development indicators. Be sure to include the pathogen, the pathogen severity, the health indicators, and development indicators in the threat you create.", width = 300, height = 250),
-               actionButton("Submit_threat", "Submit")
-        ),
-        column(6,
-               tags$head(tags$style(HTML("pre { white-space: pre-wrap; word-break: keep-all; }"))),
-               htmlOutput("results_text_threat") %>% withSpinner(color="#0dc5c1")
-        ),
-        column(4,
-               tags$head(tags$style(HTML("pre { white-space: pre-wrap; word-break: keep-all; }"))),
-               htmlOutput("results_text_threat_realism")
-        )
-      )
+  mainPanel(
+    img(src="CAPTRS_HorizonalLogo_DarkBlue.jpg", width = 300, height = 150)
+  ),
+  tabsetPanel(
+    tabPanel("Threat generation",fluidRow(
+      column(2,
+             selectInput(inputId = "ai_model", label = "Select AI", choices = c("gpt-4o", "gpt-4o-mini", "gpt-4.1", "gpt-4.1-mini"), selected = "gpt-4o-mini"),
+             selectInput(inputId = "ai_rag", label = "Use RAG?", choices = c("No", "Yes"), selected = "No"),
+             textInput(inputId = "text_pathogen", label = "Pathogen", value = "Ebola"),
+             textInput(inputId = "text_severity", label = "Severity", value = "Highly lethal"),
+             selectizeInput(inputId = "text_location", label = "Geo-political context", choices= locations, selected = "Sub-Saharan Africa", multiple = FALSE),
+             textAreaInput(inputId = "text_system_prompt", label = "System Prompt", value = "You are generating threats for use in a professional pandemic response wargame. The threat should combine risks associated with the pathogen and the geo-political context.", width = 300, height = 130),
+             textAreaInput(inputId = "text_prompt", label = "Prompt", value = "Generate a threat by combining the following information, the pathogen is PATHOGEN_HERE the severity is SEVERITY_HERE and the geopolitical context is LOCATION_HERE as a location with HEALTH_IND as health indicators and DEV_IND as development indicators. Be sure to include the pathogen, the pathogen severity, the health indicators, and development indicators in the threat you create.", width = 300, height = 250),
+             actionButton("Submit_threat", "Submit")
       ),
-      tabPanel("Ontology Evaluation",fluidRow(
-        column(4,
-               textAreaInput("text_ontology", "Scenario to evaluate:", "Date: Fri 7 Jun 2024
+      column(6,
+             tags$head(tags$style(HTML("pre { white-space: pre-wrap; word-break: keep-all; }"))),
+             htmlOutput("results_text_threat") %>% withSpinner(color="#0dc5c1")
+      ),
+      column(4,
+             tags$head(tags$style(HTML("pre { white-space: pre-wrap; word-break: keep-all; }"))),
+             htmlOutput("results_text_threat_realism")
+      )
+    )
+    ),
+    tabPanel("Ontology Evaluation",fluidRow(
+      column(4,
+             textAreaInput("text_ontology", "Scenario to evaluate:", "Date: Fri 7 Jun 2024
 Source: Haqqin [in Russian, machine trans., edited]
 https://m.haqqin.az/news/318729
 
@@ -40,7 +40,7 @@ One of them had a confirmed diagnosis and continues treatment in accordance with
 The statement notes that anthrax is a zoonotic infection and is not transmitted from person to person.
                              
 The report doesn't note the source, but presumably the 3 individuals were exposed through a common source, likely via exposure to raw meat during butchery and/or exposure to infected animals. As noted in previous posts, the best way to prevent the spillover of anthrax into humans is via aggressive vaccination of livestock in affected areas. Unfortunately such programs require long-term commitments due to the prolonged survival of anthrax spores in the environment. Any additional information on these cases and/or the source(s) would be greatly appreciated.", width = 400, height = 600),
-        actionButton("Submit_ontology","Submit")
+             actionButton("Submit_ontology","Submit")
       ),
       column(4,
              tags$head(tags$style(HTML("pre { white-space: pre-wrap; word-break: keep-all; }"))),
@@ -95,35 +95,39 @@ The report doesn't note the source, but presumably the 3 individuals were expose
     #         textInput("text_promed", "ProMed ID", "20160616.4292080"),
     #         actionButton("Submit_promed","Submit")
     #  ),
-      column(8,
-             tags$head(tags$style(HTML("pre { white-space: pre-wrap; word-break: keep-all; }"))),
-             htmlOutput("results_text_promed") %>% withSpinner(color="#0dc5c1")
-      )
-    )
-    ),
-    tabPanel("Bulk scenario evaluation",fluidRow(
-      column(3,
-             fileInput('bulk_data_excel_file', 'Upload xlsx file',
-                      accept = c(".xlsx")),
-             uiOutput('ui.action.cols'),
-             uiOutput('ui.action.rows'),
-             uiOutput('ui.action.id'),
-             uiOutput('ui.action.run')
-      ),
-      column(4,
-             tags$head(tags$style(HTML("pre { white-space: pre-wrap; word-break: keep-all; }"))),
-             DTOutput("bulk_output"),
-             downloadButton("dl_bulk", "Download")
-      )
-      )
-    ),
-    tabPanel("Terms of Use",fluidRow(
-    )),
-    footer = (HTML('
+    #column(8,
+    #       tags$head(tags$style(HTML("pre { white-space: pre-wrap; word-break: keep-all; }"))),
+    #       htmlOutput("results_text_promed") %>% withSpinner(color="#0dc5c1")
+    #)
+  #)
+#),
+tabPanel("Bulk scenario evaluation",fluidRow(
+  column(3,
+         fileInput('bulk_data_excel_file', 'Upload xlsx file',
+                   accept = c(".xlsx")),
+         uiOutput('ui.action.cols'),
+         uiOutput('ui.action.rows'),
+         uiOutput('ui.action.id'),
+         uiOutput('ui.action.run')
+  ),
+  column(4,
+         tags$head(tags$style(HTML("pre { white-space: pre-wrap; word-break: keep-all; }"))),
+         DTOutput("bulk_output"),
+         downloadButton("dl_bulk", "Download")
+  )
+)
+),
+tabPanel("Terms of Use",fluidRow(
+)),
+footer = (HTML('
                           <br>
                           <br>
                           <center>
                           <p>Powered by the Institute for Experiential AI at Northeastern University<br>
                           </p>
-                       </center>',actionLink("link_to_tabpanel_terms_of_use", "Link to panel A")))
+                          <br>
+                          <p>
+                          <a href="https://github.com/Emergent-Epidemics/captrs_shiny_ai_public/blob/main/ToS.md">Terms of Use</a>
+                          </p>
+                       </center>'))
 )))

@@ -1,4 +1,4 @@
-# Terms of Service for  https://scarpino.shinyapps.io/captrs_shiny_ai_v2/
+# Terms of Use for  https://scarpino.shinyapps.io/captrs_shiny_ai_v2/
 _last updated August 14th, 2025_
 
 Welcome to the https://scarpino.shinyapps.io/captrs_shiny_ai_v2/ website (the "Site"). Please read these terms of use (the "Terms of Use") carefully before using the Site, making a contribution to the Site, or otherwise accessing or downloading any information from the Site. The Terms of Use constitute a binding agreement between You and CAPTRS and Northeastern University ("We", "Us", "Our", "CAPTRS" or "Northeastern", "NU", "NEU", and/or "Northeastern University"), and govern Your access and use of the Site, which includes any information, data, tools, visualizations, products, services and other content (together, "Content") available on or through the Site.
