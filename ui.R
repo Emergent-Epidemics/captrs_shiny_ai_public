@@ -117,8 +117,6 @@ tabPanel("Bulk scenario evaluation",fluidRow(
   )
 )
 ),
-tabPanel("Terms of Use",fluidRow(
-)),
 footer = (HTML('
                           <br>
                           <br>
